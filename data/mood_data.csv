@@ -1,36 +1,79 @@
-name,title,temp,artist,primary,secondary
-who says - selena gomez,who says,selena gomez,selena gomez,3,4
-don't stop - 5 seconds of summer,don't stop,5 seconds of summer,5 seconds of summer,4,3
-do you hear what i hear - carrie underwood,do you hear what i hear,carrie underwood,carrie underwood,5,3
-"alliance force, assemble - takanashi yasuharu","alliance force, assemble",takanashi yasuharu,takanashi yasuharu,1,7
-ni pa bu pa shi qu wo - liu zeng tong,ni pa bu pa shi qu wo,liu zeng tong,liu zeng tong,3,5
-"bad things - camila cabello, machine gun kelly",bad things,"camila cabello, machine gun kelly","camila cabello, machine gun kelly",6,7
-naturally - selena gomez,naturally,selena gomez,selena gomez,4,7
-a oh - super junior,a oh,super junior,super junior,4,3
-love somebody - maroon 5,love somebody,maroon 5,maroon 5,4,3
-mother - super junior,mother,super junior,super junior,3,7
-"this is me - demi lovato, joe jonas",this is me,"demi lovato, joe jonas","demi lovato, joe jonas",4,7
-haru - super junior,haru,super junior,super junior,3,7
-"baby, don't cry - exo","baby, don't cry",exo,exo,3,5
-mirror night - vk,mirror night,vk,vk,5,3
-dynamite - taio cruz,dynamite,taio cruz,taio cruz,4,7
-what makes you beautiful - one direction,what makes you beautiful,one direction,one direction,4,3
-cassandra - two steps from hell,cassandra,two steps from hell,two steps from hell,1,7
-battleborne - two steps from hell,battleborne,two steps from hell,two steps from hell,1,7
-flight of the silverbird - two steps from hell,flight of the silverbird,two steps from hell,two steps from hell,1,7
-dragon rider - two steps from hell,dragon rider,two steps from hell,two steps from hell,1,7
-for the win - two steps from hell,for the win,two steps from hell,two steps from hell,1,7
-heart of courage - two steps from hell,heart of courage,two steps from hell,two steps from hell,1,7
-the colonel - two steps from hell,the colonel,two steps from hell,two steps from hell,1,7
-star sky - two steps from hell,star sky,two steps from hell,two steps from hell,1,3
-norwegian pirate - two steps from hell,norwegian pirate,two steps from hell,two steps from hell,1,7
-victory - two steps from hell,victory,two steps from hell,two steps from hell,1,7
-because i miss you - kyuhyun,because i miss you,kyuhyun,kyuhyun,3,5
-hello - teen top,hello,teen top,teen top,4,3
-city - yamagami takeshi,city,yamagami takeshi,yamagami takeshi,5,3
-everytime we touch - cascada,everytime we touch, cascada,cascada,4,6
-you he bu ke - xu song,you he bu ke, xu song,xu song,3,5
-not over you - gavin degraw,not over you, gavin degraw,gavin degraw,6,3
-wo shi zhen de ai guo ni - liu zeng tong,wo shi zhen de ai guo ni, liu zeng tong,liu zeng tong,3,6
-try - pink,try, pink,pink,4,6
-youth - troye sivan,youth, troye sivan,troye sivan,6,7
+title,artist,primary,secondary
+who says,selena gomez,2,3
+don't stop,5 seconds of summer,3,2
+do you hear what i hear,carrie underwood,4,2
+"alliance force, assemble",takanashi yasuharu,1,6
+ni pa bu pa shi qu wo,liu zeng tong,2,4
+bad things,"camila cabello, machine gun kelly",5,6
+naturally,selena gomez,3,6
+a oh,super junior,3,2
+love somebody,maroon 5,3,2
+mother,super junior,2,6
+this is me,"demi lovato, joe jonas",3,6
+haru,super junior,2,6
+"baby, don't cry",exo,2,4
+mirror night,vk,4,2
+dynamite,taio cruz,3,6
+what makes you beautiful,one direction,3,2
+cassandra,two steps from hell,1,6
+battleborne,two steps from hell,1,6
+flight of the silverbird,two steps from hell,1,6
+dragon rider,two steps from hell,1,6
+for the win,two steps from hell,1,6
+heart of courage,two steps from hell,1,6
+the colonel,two steps from hell,1,6
+star sky,two steps from hell,1,2
+norwegian pirate,two steps from hell,1,6
+victory,two steps from hell,1,6
+because i miss you,kyuhyun,2,4
+hello,teen top,3,2
+city,yamagami takeshi,4,2
+everytime we touch,cascada,3,6
+you he bu ke,xu song,2,4
+not over you,gavin degraw,5,6
+wo shi zhen de ai guo ni,liu zeng tong,2,4
+try,pink,3,6
+youth,troye sivan,5,6
+the monster,"eminem, rihanna",6,1
+live while we're young,one direction,3,2
+no average angel,tiffany giardina,3,6
+story of us,taylor swift,3,2
+dreamer,super junior,5,4
+sparks fly,taylor swift,2,6
+here we go,super junior,2,3
+spin and burst,yaiba,1,6
+sky chord,tsuji shion,2,5
+red,taylor swift,5,2
+guang nian zhi wai,gem,6,1
+still in love,jason chen,2,5
+jing zhe,yin que shi ting,3,2
+between,yesung,2,5
+holiday,henry,3,2
+traveler of the magic borders,takanashi yasuharu,1,3
+take it slow,taeyang,5,2
+bie qing yi shuo ai,cheng xin,6,5
+angela,super junior,2,6
+wolves,"selena gomez, marshmello",5,6
+half a heart,one direction,5,6
+rugs from me to you,owl city,2,3
+ni cong bu zhi dao,liu zeng tong,5,4
+hurry up and save me,tiffany giardina,1,3
+i,"taeyeon, verbal jint",5,2
+dive to world,cherryblossom,3,2
+spinning world,diana garnet,3,2
+u smile,justin bieber,5,2
+no title,reol,2,3
+it's you,henry,5,2
+just dance,lady gaga,3,6
+three,britney spears,3,6
+silhouette,kana boon,3,6
+celestial spirit leo,takanashi yasuharu,1,6
+why don't we go there,one direction,3,6
+maybe tomorrow,ryeowook,5,4
+promise,ft island,2,6
+super clap,super junior,3,6
+unexpectedly,jason chen,2,5
+preacher,one republic,5,2
+cosmic,"ryeowook, bada",2,5
+beggin on your knees,victoria justice,3,6
+wake me up,avicii,3,2

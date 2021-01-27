@@ -12,24 +12,22 @@ Take a variety of songs (mp3 files) and determine which mood they best represent
 #### A. Determine moods to use
 Some moods to consider:  
 *Epic* - heroic and powerful sounding, songs you would play during a battle scene  
-*Gloomy* - sad and melancholy, songs that make you feel lonely or down  
 *Lighthearted* - somewhat cheerful and happy sounding, songs that uplift spirits or give off an overall positive vibe  
 *Energetic* - exciting, songs that can give people a rush of adrenaline and hype up the dance floor  
 *Calm* - peaceful and serene music, songs to listen to when one is trying to sleep or meditate  
 *Chill* - rhythmical, music with a contemporary R&B feel and songs between energetic and calm  
-*Mixed* - songs that are a mix of multiple moods or mood is ambiguous
+*Miscellaneous* - songs that are a mix of multiple moods or mood is ambiguous  
 These considerations may change depending on the tagging process of songs.  
 #### B. Determine songs to use
 A good number is around 750 to 1000 songs. These chosen songs should vary in terms of genre, lyrics, instrumentals, and fluctuation in mood (songs that can be interpreted as multiple moods).
 #### C. Label the songs
 Label each song with an integer representing the mood. Store the mapping of songs to moods as a CSV file named [mood_data.csv](data/mood_data.csv) in the data folder. This is the mapping of integers to moods:  
 **1**: epic  
-**2**: gloomy  
-**3**: lighthearted  
-**4**: energetic  
-**5**: calm  
-**6**: chill  
-**7**: mixed
+**2**: lighthearted  
+**3**: energetic  
+**4**: calm  
+**5**: chill  
+**6**: miscellaneous
 #### D. Split the labeled songs
 Split the labeled data into training and development sets. The exact number for each set can be determined after labeling songs.
 
