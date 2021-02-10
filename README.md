@@ -1,6 +1,6 @@
 # Project Outline
 
-Last Updated: February 3, 2021
+Last Updated: February 10, 2021
 ### Project Description
 A Python 3 project that takes a music library and classifies the songs (mp3 files) into certain moods, creating playlists with these moods.
 
@@ -36,12 +36,6 @@ Determine features to use for the classifier. This process is done so the model 
 #### A. Explore packages for feature extraction
 The following packages may help in feature extraction:  
 [pyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis/) audio feature extraction, segmentation  
-[eyeD3](https://eyed3.readthedocs.io/en/latest/) ~~provides information about mp3 files~~  
-[PyOracle](https://github.com/surgesg/PyOracle) ~~can detect introductions and repetitions~~  
-[Friture](http://friture.org/) ~~graphical program for time frequency analysis~~  
-[LibXtract](https://github.com/jamiebullock/LibXtract/) library for audio feature extraction  
-[Yaafe](http://yaafe.sourceforge.net/) efficient for extracting a large number of audio features simultaneously  
-[Aubio](https://aubio.org/) extracts annotations from audio signals, segments music, detects pitch  
 [LibROSA](https://github.com/librosa/librosa) has common features of audio and music analysis  
 #### B. Determine features and how to store them
 Figure out which features to keep for the model and the best way to store each feature (this can be either numerical or textual).
