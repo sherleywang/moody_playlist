@@ -13,15 +13,19 @@ Last Updated: February 10, 2021
     conda create --name music python=3.8
     conda activate music
     ```
-3. Install the two packages needed: pyAudioAnalysis and librosa
+3. Install the three packages needed: pyAudioAnalysis, librosa, and JupyterLab
     - [librosa](https://librosa.org/) installation
-    ```python
+        ```python
         conda install -c conda-forge librosa
-    ```
+        ```
     - [pyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis/) installation
         ```python
         git clone https://github.com/tyiannak/pyAudioAnalysis.git
         cd pyAudioAnalysis
         pip install -r requirements.txt
         pip install -e .
+        ```
+    - [JupyterLab](https://jupyter.org/install) installation
+        ```python
+        conda install -c conda-forge jupyterlab
         ```
