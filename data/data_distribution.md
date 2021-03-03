@@ -21,3 +21,7 @@ Yamagami Takeshi        **4**
 Yiruma                  **4**  
 VK                      **4**  
 Toshiro Masuda          **3**  
+
+### Correlation Matrix of 5 Features
+This is the correlation matrix of the five features extracted from the mp3 files:  
+![Correlation Matrix](correlation_matrix.jpg)
