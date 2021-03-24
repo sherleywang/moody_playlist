@@ -1,6 +1,6 @@
 # Project Outline
 
-Last Updated: February 10, 2021
+Last Updated: March 24, 2021
 ### Project Description
 A Python 3 project that takes a music library and classifies the songs (mp3 files) into certain moods, creating playlists with these moods.
 
@@ -28,21 +28,34 @@ Label each song with an integer representing the mood. Store the mapping of song
 **4**: calm  
 **5**: chill  
 **6**: miscellaneous
-#### D. Split the labeled songs
-Split the labeled data into training and development sets. The exact number for each set can be determined after labeling songs.
 
 ### Step 2: Feature Extraction
 Determine features to use for the classifier. This process is done so the model can classify a new and unseen song just by having the mp3 file.
 #### A. Explore packages for feature extraction
-The following packages may help in feature extraction:  
+The following packages were used in feature extraction:  
 [pyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis/) audio feature extraction, segmentation  
 [LibROSA](https://github.com/librosa/librosa) has common features of audio and music analysis  
-#### B. Determine features and how to store them
-Figure out which features to keep for the model and the best way to store each feature (this can be either numerical or textual).
+#### B. Determine and extract features
+Five Main Features:  
+1. Tempo  
+2. Chroma Number  
+3. Zero Crossing Rate  
+4. Energy Entropy  
+5. Spectral Centroid  
+
+#### C. Store features to avoid timely feature extraction
+The feature extraction process first checks for existing CSV files to determine which mp3 files already have valid features. Then, using the command line, a text file of all mp3 files that need to have features extracted is generated. Using this file, the feature extraction code will only operate on the files listed. In the end, the newly-created features are added to the end of the existing features CSV files. This process is built-in the feature extraction code located [here](music/feature_extraction.ipynb).  
 
 ### Step 3: Training and Testing the Model
-#### A. Write code for a few classifiers
-Classifiers currently in consideration are SVM, Perceptron, Logistic Regression, Naive Bayes, and Neural Network.
+#### A. Try out a few classifiers using scikit-learn
+Classifiers currently in consideration:  
+1. Support Vector Machine  
+2. Logistic Regression  
+3. K Nearest Neighbor  
+4. Gaussian Naive Bayes  
+5. Random Forest  
+6. Multi-Layer Perceptron  
+
 #### B. Test classifiers on the development set
 Determine which classifier has the highest accuracy by adjust variables such as learning rates, training iterations etc. Take the classifier with the highest accuracy as the final model.
 
