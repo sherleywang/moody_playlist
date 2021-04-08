@@ -14908,7 +14908,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract additional neural network features</span>
@@ -14924,7 +14924,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check existing raw features</span>
@@ -14943,7 +14943,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
@@ -14957,7 +14957,7 @@ Feature extraction complexity ratio: 43.9 x realtime
             <span class="n">sound</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">set_frame_rate</span><span class="p">(</span><span class="mi">16000</span><span class="p">)</span>
             <span class="n">sound</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;wav&quot;</span><span class="p">)</span>
             <span class="c1"># does not work for mp3s that are shorter than 35 seconds</span>
-            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">sf</span><span class="o">.</span><span class="n">blocks</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">,</span> <span class="n">blocksize</span> <span class="o">=</span> <span class="mi">500000</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">sf</span><span class="o">.</span><span class="n">blocks</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">,</span> <span class="n">blocksize</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">):</span>
                 <span class="n">new_raw_dict</span><span class="p">[</span><span class="n">song_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span>
                 <span class="k">break</span>
 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">):</span>
@@ -14974,7 +14974,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_raw_dict</span><span class="p">)</span>
@@ -14993,7 +14993,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_raw</span>
@@ -15012,7 +15012,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
 
 
 
@@ -15046,16 +15046,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <th>7</th>
       <th>8</th>
       <th>...</th>
-      <th>499990</th>
-      <th>499991</th>
-      <th>499992</th>
-      <th>499993</th>
-      <th>499994</th>
-      <th>499995</th>
-      <th>499996</th>
-      <th>499997</th>
-      <th>499998</th>
-      <th>499999</th>
+      <th>99990</th>
+      <th>99991</th>
+      <th>99992</th>
+      <th>99993</th>
+      <th>99994</th>
+      <th>99995</th>
+      <th>99996</th>
+      <th>99997</th>
+      <th>99998</th>
+      <th>99999</th>
     </tr>
   </thead>
   <tbody>
@@ -15072,16 +15072,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.219666</td>
       <td>0.106842</td>
       <td>...</td>
-      <td>0.218628</td>
-      <td>0.309845</td>
-      <td>0.062744</td>
-      <td>-0.030548</td>
-      <td>0.013885</td>
-      <td>0.124237</td>
-      <td>0.199097</td>
-      <td>0.194489</td>
-      <td>0.203278</td>
-      <td>0.031464</td>
+      <td>-0.080841</td>
+      <td>-0.034271</td>
+      <td>-0.182251</td>
+      <td>0.017303</td>
+      <td>0.132935</td>
+      <td>0.306610</td>
+      <td>0.148407</td>
+      <td>-0.014404</td>
+      <td>0.183716</td>
+      <td>0.136566</td>
     </tr>
     <tr>
       <th>1</th>
@@ -15096,16 +15096,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.038391</td>
       <td>0.046722</td>
       <td>...</td>
-      <td>-0.029907</td>
-      <td>-0.053497</td>
-      <td>-0.105804</td>
-      <td>-0.203033</td>
-      <td>-0.142517</td>
-      <td>0.035645</td>
-      <td>-0.176392</td>
-      <td>-0.109009</td>
-      <td>-0.196625</td>
-      <td>-0.213684</td>
+      <td>-0.007111</td>
+      <td>-0.030304</td>
+      <td>-0.008392</td>
+      <td>0.059509</td>
+      <td>0.092468</td>
+      <td>0.025116</td>
+      <td>0.016785</td>
+      <td>0.041809</td>
+      <td>0.071136</td>
+      <td>0.130554</td>
     </tr>
     <tr>
       <th>2</th>
@@ -15120,16 +15120,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>-0.179108</td>
       <td>-0.175995</td>
       <td>...</td>
-      <td>-0.301880</td>
-      <td>-0.297150</td>
-      <td>-0.272919</td>
-      <td>-0.237701</td>
-      <td>-0.193604</td>
-      <td>-0.158112</td>
-      <td>-0.136230</td>
-      <td>-0.122009</td>
-      <td>-0.096405</td>
-      <td>-0.082031</td>
+      <td>-0.058014</td>
+      <td>-0.056671</td>
+      <td>-0.054871</td>
+      <td>-0.055237</td>
+      <td>-0.053772</td>
+      <td>-0.048981</td>
+      <td>-0.044281</td>
+      <td>-0.034943</td>
+      <td>-0.029633</td>
+      <td>-0.027527</td>
     </tr>
     <tr>
       <th>3</th>
@@ -15144,16 +15144,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.132629</td>
       <td>0.159119</td>
       <td>...</td>
-      <td>0.223328</td>
-      <td>0.274353</td>
-      <td>0.151215</td>
-      <td>-0.043488</td>
-      <td>0.484894</td>
-      <td>0.396118</td>
-      <td>0.391541</td>
-      <td>0.266296</td>
-      <td>0.226379</td>
-      <td>0.302002</td>
+      <td>-0.056244</td>
+      <td>0.125000</td>
+      <td>-0.037994</td>
+      <td>0.080261</td>
+      <td>-0.024231</td>
+      <td>-0.150635</td>
+      <td>-0.049500</td>
+      <td>0.043701</td>
+      <td>-0.050781</td>
+      <td>0.124878</td>
     </tr>
     <tr>
       <th>4</th>
@@ -15168,16 +15168,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.056885</td>
       <td>0.119629</td>
       <td>...</td>
-      <td>0.068848</td>
-      <td>0.107330</td>
-      <td>0.163544</td>
-      <td>0.201965</td>
-      <td>0.257050</td>
-      <td>0.275574</td>
-      <td>0.482422</td>
-      <td>0.532684</td>
-      <td>0.467804</td>
-      <td>0.522247</td>
+      <td>-0.042267</td>
+      <td>-0.021881</td>
+      <td>0.001526</td>
+      <td>0.030334</td>
+      <td>0.058197</td>
+      <td>0.078308</td>
+      <td>0.087189</td>
+      <td>0.077271</td>
+      <td>0.039520</td>
+      <td>-0.011230</td>
     </tr>
     <tr>
       <th>...</th>
@@ -15216,16 +15216,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.030518</td>
       <td>0.029724</td>
       <td>...</td>
-      <td>-0.093231</td>
-      <td>-0.101807</td>
-      <td>-0.087036</td>
-      <td>-0.084229</td>
-      <td>-0.066528</td>
-      <td>-0.070801</td>
-      <td>-0.069519</td>
-      <td>-0.082428</td>
-      <td>-0.099609</td>
-      <td>-0.124969</td>
+      <td>-0.056458</td>
+      <td>-0.077820</td>
+      <td>-0.096558</td>
+      <td>-0.169525</td>
+      <td>-0.239258</td>
+      <td>-0.303772</td>
+      <td>-0.301147</td>
+      <td>-0.270264</td>
+      <td>-0.253265</td>
+      <td>-0.268066</td>
     </tr>
     <tr>
       <th>196</th>
@@ -15240,16 +15240,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>-0.040741</td>
       <td>-0.012817</td>
       <td>...</td>
-      <td>0.133148</td>
-      <td>0.162994</td>
-      <td>0.196838</td>
-      <td>0.229187</td>
-      <td>0.255829</td>
-      <td>0.263397</td>
-      <td>0.264679</td>
-      <td>0.211334</td>
-      <td>0.214417</td>
-      <td>0.155579</td>
+      <td>-0.050049</td>
+      <td>-0.041321</td>
+      <td>-0.036987</td>
+      <td>-0.037292</td>
+      <td>-0.043732</td>
+      <td>-0.052429</td>
+      <td>-0.064270</td>
+      <td>-0.074890</td>
+      <td>-0.081268</td>
+      <td>-0.086334</td>
     </tr>
     <tr>
       <th>197</th>
@@ -15264,16 +15264,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.006470</td>
       <td>0.006409</td>
       <td>...</td>
-      <td>0.089447</td>
-      <td>0.086182</td>
-      <td>0.092957</td>
-      <td>0.099701</td>
-      <td>0.102936</td>
-      <td>0.104553</td>
-      <td>0.106964</td>
-      <td>0.109131</td>
-      <td>0.109802</td>
-      <td>0.107910</td>
+      <td>-0.006134</td>
+      <td>-0.004395</td>
+      <td>-0.002441</td>
+      <td>-0.000519</td>
+      <td>0.000122</td>
+      <td>-0.001984</td>
+      <td>-0.006317</td>
+      <td>-0.010193</td>
+      <td>-0.011780</td>
+      <td>-0.011963</td>
     </tr>
     <tr>
       <th>198</th>
@@ -15288,16 +15288,16 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>-0.001343</td>
       <td>-0.000519</td>
       <td>...</td>
-      <td>-0.053436</td>
-      <td>0.002380</td>
-      <td>-0.095856</td>
-      <td>-0.035126</td>
-      <td>-0.007477</td>
-      <td>-0.068787</td>
-      <td>-0.068665</td>
-      <td>-0.045441</td>
-      <td>-0.057037</td>
-      <td>-0.054901</td>
+      <td>0.065247</td>
+      <td>0.098297</td>
+      <td>0.120911</td>
+      <td>0.100739</td>
+      <td>0.036255</td>
+      <td>-0.002991</td>
+      <td>-0.016052</td>
+      <td>-0.074615</td>
+      <td>-0.111176</td>
+      <td>-0.077942</td>
     </tr>
     <tr>
       <th>199</th>
@@ -15312,20 +15312,20 @@ Feature extraction complexity ratio: 43.9 x realtime
       <td>0.177002</td>
       <td>0.122192</td>
       <td>...</td>
-      <td>0.197601</td>
-      <td>0.188599</td>
-      <td>0.189758</td>
-      <td>0.199158</td>
-      <td>0.198639</td>
-      <td>0.197266</td>
-      <td>0.199768</td>
-      <td>0.219452</td>
-      <td>0.225525</td>
-      <td>0.214142</td>
+      <td>-0.165710</td>
+      <td>-0.166901</td>
+      <td>-0.168793</td>
+      <td>-0.157715</td>
+      <td>-0.123444</td>
+      <td>-0.102936</td>
+      <td>-0.092194</td>
+      <td>-0.076324</td>
+      <td>-0.026764</td>
+      <td>0.004791</td>
     </tr>
   </tbody>
 </table>
-<p>200 rows × 500001 columns</p>
+<p>200 rows × 100001 columns</p>
 </div>
 </div>
 
@@ -15338,7 +15338,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">existing_raw</span><span class="p">:</span>
