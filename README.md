@@ -1,6 +1,6 @@
 # Project Outline
 
-Last Updated: March 24, 2021
+Last Updated: April 14, 2021
 ### Project Description
 A Python 3 project that takes a music library and classifies the songs (mp3 files) into certain moods, creating playlists with these moods.
 
@@ -36,28 +36,28 @@ The following packages were used in feature extraction:
 [pyAudioAnalysis](https://github.com/tyiannak/pyAudioAnalysis/) audio feature extraction, segmentation  
 [LibROSA](https://github.com/librosa/librosa) has common features of audio and music analysis  
 #### B. Determine and extract features
-Five Main Features:  
-1. Tempo  
-2. Chroma Number  
-3. Zero Crossing Rate  
-4. Energy Entropy  
-5. Spectral Centroid  
+Four sets of features were extracted from this dataset.  
+1. Basic Features (5 features)  
+2. Engineered Features (28 features)  
+3. pyAudioAnalysis Neural Network Features (136 features)  
+4. Raw WAV File Features (100,000 features)  
 
 #### C. Store features to avoid timely feature extraction
 The feature extraction process first checks for existing CSV files to determine which mp3 files already have valid features. Then, using the command line, a text file of all mp3 files that need to have features extracted is generated. Using this file, the feature extraction code will only operate on the files listed. In the end, the newly-created features are added to the end of the existing features CSV files. This process is built-in the feature extraction code located [here](music/feature_extraction.ipynb).  
 
 ### Step 3: Training and Testing the Model
-#### A. Try out a few classifiers using scikit-learn
-Classifiers currently in consideration:  
+#### A. Train several classifiers using scikit-learn
+Trained classifiers:  
 1. Support Vector Machine  
 2. Logistic Regression  
 3. K Nearest Neighbor  
 4. Gaussian Naive Bayes  
 5. Random Forest  
-6. Multi-Layer Perceptron  
+6. Multi-Layer Perceptron (using pyAudioAnalysis features)  
+7. Multi-Layer Perceptron (using raw digital signal)  
 
-#### B. Test classifiers on the development set
-Determine which classifier has the highest accuracy by adjust variables such as learning rates, training iterations etc. Take the classifier with the highest accuracy as the final model.
+#### B. Ensemble the trained classifiers into one model
+A stacked classifier was trained using the first 5 classifiers. Then, a weighted formula was used to combine the predictions of the stacked classifier with the two perceptron models to generate a final prediction. 
 
 ### Step 4: Combining into Application
 Create an application with the trained model as the classifier. This application takes in mp3 files and classifies each song into a mood category. In the end, the application will output a playlist for each mood category.
