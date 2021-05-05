@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>moody_playlist</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>large_models</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14263,27 +14263,18 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import general packages</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">ntpath</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 
-<span class="c1"># import tkinter packages</span>
-<span class="kn">import</span> <span class="nn">tkinter</span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">messagebox</span>
-<span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Progressbar</span>
-<span class="kn">from</span> <span class="nn">tkinter.ttk</span> <span class="kn">import</span> <span class="n">Button</span>
-
-<span class="c1"># import music analysis packages</span>
-<span class="kn">import</span> <span class="nn">librosa</span>
-<span class="kn">import</span> <span class="nn">pyAudioAnalysis</span> <span class="k">as</span> <span class="nn">pyaudio</span>
-<span class="kn">from</span> <span class="nn">pyAudioAnalysis</span> <span class="kn">import</span> <span class="n">audioBasicIO</span>
-<span class="kn">from</span> <span class="nn">pyAudioAnalysis</span> <span class="kn">import</span> <span class="n">MidTermFeatures</span>
+<span class="c1"># import sklearn utility</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neural_network</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">decomposition</span>
 </pre></div>
 
      </div>
@@ -14297,9 +14288,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># toggle warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="c1"># warnings.filterwarnings(&#39;default&#39;)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load raw and basic features</span>
+<span class="n">raw_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/raw_features.csv&quot;</span><span class="p">)</span>
+<span class="n">basic_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/features.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14313,11 +14304,16 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># select the directory of the mp3 files using tkinter</span>
-<span class="n">tkobj</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
-<span class="n">tkobj</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
-<span class="n">tkobj</span><span class="o">.</span><span class="n">directory</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Select the folder containing the MP3 files.&quot;</span><span class="p">)</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">tkobj</span><span class="o">.</span><span class="n">directory</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># combine raw features with basic features</span>
+<span class="n">combined_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">basic_features</span><span class="p">,</span> <span class="n">raw_features</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">combined_raw</span><span class="p">[</span><span class="s1">&#39;song_check&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined_raw</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">combined_raw</span><span class="p">[</span><span class="s1">&#39;artist&#39;</span><span class="p">]</span>
+
+<span class="c1"># display to terminal whether the merge was successful</span>
+<span class="k">if</span> <span class="n">combined_raw</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">combined_raw</span><span class="p">[</span><span class="s1">&#39;song_check&#39;</span><span class="p">]):</span>
+    <span class="err">!</span><span class="n">echo</span> <span class="s2">&quot;Raw features match.&quot;</span>
+    <span class="n">combined_raw</span> <span class="o">=</span> <span class="n">combined_raw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">,</span> <span class="s1">&#39;song_check&#39;</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">echo</span> <span class="s2">&quot;Raw features DO NOT match.&quot;</span>
 </pre></div>
 
      </div>
@@ -14331,8 +14327,13 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># start timer as soon as a directory is chosen</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># function to separate the features from the labels</span>
+<span class="k">def</span> <span class="nf">build_xy</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">9</span><span class="p">:]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">features</span><span class="p">[[</span><span class="s1">&#39;primary&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary&#39;</span><span class="p">]]</span>
+    <span class="c1"># create a combined label with primary and secondary moods listed</span>
+    <span class="n">y</span><span class="p">[</span><span class="s1">&#39;combined&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;secondary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14346,13 +14347,23 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code for progress button</span>
-<span class="c1"># progress = Progressbar(tkobj, length = 100, mode = &#39;determinate&#39;)</span>
-<span class="c1"># progress.pack()</span>
-<span class="c1"># Button(tkobj, text = &#39;Generate Playlists&#39;).pack()</span>
-<span class="c1"># tkobj.mainloop()</span>
-<span class="c1"># progress[&#39;value&#39;] = 20</span>
-<span class="c1"># tkobj.update()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Multi-Layer Perceptron with raw features</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">build_xy</span><span class="p">(</span><span class="n">combined_raw</span><span class="p">)</span>
+<span class="n">mlp_model</span> <span class="o">=</span> <span class="n">neural_network</span><span class="o">.</span><span class="n">MLPClassifier</span><span class="p">()</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">decomposition</span><span class="o">.</span><span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">svd_solver</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">scaler</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;pca&#39;</span><span class="p">,</span> <span class="n">pca</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;mlp&#39;</span><span class="p">,</span> <span class="n">mlp_model</span><span class="p">)])</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mlp__hidden_layer_sizes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">10000</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50000</span><span class="p">,),</span> <span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">50000</span><span class="p">,</span><span class="mi">50</span><span class="p">)],</span>
+    <span class="s1">&#39;mlp__activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="s1">&#39;identity&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;mlp__solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;mlp__alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">accuracies</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">],</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracies</span><span class="p">)</span>
+<span class="err">!</span><span class="n">echo</span> <span class="s2">&quot;cross validation average&quot;</span>
+<span class="err">!</span><span class="n">echo</span> <span class="err">$</span><span class="n">avg</span>
 </pre></div>
 
      </div>
@@ -14366,350 +14377,24 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract raw features</span>
-<span class="n">m3u_paths</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">librosa_features</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">pyaudio_features</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">feat_names</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="c1"># pyAudioAnalysis feature extraction variables</span>
-<span class="n">mid_term_window</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">mid_term_step</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">short_term_window</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="n">short_term_step</span> <span class="o">=</span> <span class="mf">0.05</span>
-
-<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">topdown</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="c1"># extract pyAudioAnalysis features from the root folder</span>
-    <span class="n">pyaudio_feat</span><span class="p">,</span> <span class="n">song_files</span><span class="p">,</span> <span class="n">feat_names</span> <span class="o">=</span> <span class="n">MidTermFeatures</span><span class="o">.</span><span class="n">directory_feature_extraction</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> 
-                                                                                        <span class="n">mid_term_window</span><span class="p">,</span> 
-                                                                                        <span class="n">mid_term_step</span><span class="p">,</span> 
-                                                                                        <span class="n">short_term_window</span><span class="p">,</span> 
-                                                                                        <span class="n">short_term_step</span><span class="p">,</span>
-                                                                                        <span class="kc">False</span><span class="p">)</span>
-    <span class="c1"># convert pyAudioAnalysis features into dictionary format</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">song_files</span><span class="p">:</span>
-        <span class="n">s_dict_name</span> <span class="o">=</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">pyaudio_feat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">pyaudio_features</span><span class="p">[</span><span class="n">s_dict_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyaudio_feat</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">pyaudio_features</span><span class="p">[</span><span class="n">s_dict_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyaudio_feat</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span>
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    
-    <span class="c1"># extract pyAudioAnalysis features from subfolders</span>
-    <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
-        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
-        <span class="n">pyaudio_feat</span><span class="p">,</span> <span class="n">song_files</span><span class="p">,</span> <span class="n">feat_names</span> <span class="o">=</span> <span class="n">MidTermFeatures</span><span class="o">.</span><span class="n">directory_feature_extraction</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> 
-                                                                                            <span class="n">mid_term_window</span><span class="p">,</span> 
-                                                                                            <span class="n">mid_term_step</span><span class="p">,</span> 
-                                                                                            <span class="n">short_term_window</span><span class="p">,</span> 
-                                                                                            <span class="n">short_term_step</span><span class="p">,</span>
-                                                                                            <span class="kc">False</span><span class="p">)</span>
-        <span class="c1"># convert pyAudioAnalysis features into dictionary format</span>
-        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">song_files</span><span class="p">:</span>
-            <span class="n">s_dict_name</span> <span class="o">=</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">pyaudio_feat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">pyaudio_features</span><span class="p">[</span><span class="n">s_dict_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyaudio_feat</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">pyaudio_features</span><span class="p">[</span><span class="n">s_dict_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyaudio_feat</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span>
-            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    
-    
-    <span class="c1"># extract librosa features</span>
-    <span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-        <span class="n">song_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">song</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">song_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">):</span>
-            <span class="c1"># get the tempo of the song</span>
-            <span class="n">waveform</span><span class="p">,</span> <span class="n">samp_rate</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">song_path</span><span class="p">)</span>
-            <span class="n">tempo</span><span class="p">,</span> <span class="n">beat_frames</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">beat</span><span class="o">.</span><span class="n">beat_track</span><span class="p">(</span><span class="n">waveform</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">)</span>
-
-            <span class="c1"># get the chroma number of the song</span>
-            <span class="n">beat_times</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">frames_to_time</span><span class="p">(</span><span class="n">beat_frames</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">)</span>
-            <span class="n">y_harmonic</span><span class="p">,</span> <span class="n">y_percussive</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">hpss</span><span class="p">(</span><span class="n">waveform</span><span class="p">)</span>
-            <span class="n">chromagram</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">chroma_cqt</span><span class="p">(</span><span class="n">y_harmonic</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">)</span>
-            <span class="n">beat_chroma</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">chromagram</span><span class="p">,</span> <span class="n">beat_frames</span><span class="p">,</span> <span class="n">aggregate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">)</span>
-            
-            <span class="c1"># make beat chroma into a DataFrame and calculate the diff for a single float</span>
-            <span class="n">chroma_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">beat_chroma</span><span class="p">)</span>
-            <span class="n">diff_values</span> <span class="o">=</span> <span class="n">chroma_df</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-            <span class="n">diff_mean</span> <span class="o">=</span> <span class="n">diff_values</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-            <span class="n">chroma_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">diff_mean</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_mean</span><span class="p">)</span>
-            
-            <span class="c1"># save librosa features and the path to each song</span>
-            <span class="n">librosa_features</span><span class="p">[</span><span class="n">song</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">tempo</span><span class="p">,</span> <span class="n">chroma_num</span><span class="p">]</span>
-            <span class="n">m3u_paths</span><span class="p">[</span><span class="n">song</span><span class="p">]</span> <span class="o">=</span> <span class="n">song_path</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show an error message if the feature extraction failed</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pyaudio_features</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">librosa_features</span><span class="p">):</span>
-    <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Import of MP3 files failed.&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># only keep desired features from pyAudioAnalysis for stacked classifier</span>
-<span class="n">new_pyaudio_features</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">selected_feats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zcr_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;zcr_std&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_entropy_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_centroid_mean&#39;</span><span class="p">,</span> 
-                  <span class="s1">&#39;spectral_spread_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_entropy_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;mfcc_2_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;mfcc_5_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;mfcc_6_mean&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;spectral_centroid_std&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_entropy_std&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_spread_std&#39;</span><span class="p">,</span> <span class="s1">&#39;chroma_7_std&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;delta chroma_2_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta chroma_3_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta chroma_9_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta chroma_std_std&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;delta energy_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta mfcc_1_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta mfcc_3_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta mfcc_13_std&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;delta spectral_centroid_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta spectral_entropy_std&#39;</span><span class="p">,</span> <span class="s1">&#39;delta spectral_flux_std&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;delta spectral_spread_std&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pyaudio_features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">index_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">feat_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span> <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">selected_feats</span><span class="p">]</span>
-    <span class="n">extracted_feats</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">index_list</span><span class="p">]</span>
-    <span class="n">new_pyaudio_features</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">extracted_feats</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># transpose and merge the engineered features into one feature DataFrame</span>
-<span class="n">librosa_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">librosa_features</span><span class="p">)</span>
-<span class="n">librosa_df</span> <span class="o">=</span> <span class="n">librosa_df</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-<span class="n">eng_pyaudio_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_pyaudio_features</span><span class="p">)</span>
-<span class="n">eng_pyaudio_df</span> <span class="o">=</span> <span class="n">eng_pyaudio_df</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-<span class="n">eng_features</span> <span class="o">=</span> <span class="n">librosa_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">eng_pyaudio_df</span><span class="p">,</span> <span class="n">right_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">left_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">eng_features</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate neural network features</span>
-<span class="n">pyaudio_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pyaudio_features</span><span class="p">)</span>
-<span class="n">pyaudio_df</span> <span class="o">=</span> <span class="n">pyaudio_df</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-<span class="n">nn_features</span> <span class="o">=</span> <span class="n">pyaudio_df</span>
-<span class="n">nn_features</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load the stacking classifier model and predict using the engineered features</span>
-<span class="n">loaded_stacker</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mood_stacking_model.sav&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
-<span class="n">stacker_predictions</span> <span class="o">=</span> <span class="n">loaded_stacker</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">eng_features</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load the mlp model and predict using the neural network features</span>
-<span class="n">loaded_mlp</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mood_mlp_model.sav&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
-<span class="n">mlp_predictions</span> <span class="o">=</span> <span class="n">loaded_mlp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">nn_features</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># combine predictions from both models for a final predictions list</span>
-<span class="n">final_preds</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stacker_predictions</span><span class="p">)):</span>
-    <span class="n">stack_pred</span> <span class="o">=</span> <span class="n">stacker_predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">mlp_pred</span> <span class="o">=</span> <span class="n">mlp_predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    
-    <span class="k">if</span> <span class="n">stack_pred</span> <span class="o">!=</span> <span class="n">mlp_pred</span><span class="p">:</span>
-        <span class="c1"># prediction was different between stacking and mlp models</span>
-        <span class="k">if</span> <span class="n">stack_pred</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">stack_pred</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="c1"># prefer stacking classifier for moods 1 and 3</span>
-            <span class="n">final_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stack_pred</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">final_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp_pred</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># predictions are the same, just append mlp&#39;s prediction</span>
-        <span class="n">final_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp_pred</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate song lists based on predicted moods</span>
-<span class="c1"># 1 epic, 2 lighthearted, 3 energetic, 4 calm, 5 chill, 6 miscellaneous</span>
-<span class="n">epic</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">lighthearted</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">energetic</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">calm</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">chill</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">miscellaneous</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># ordering of indices are the same as engineered features due to prior sorting</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">final_preds</span><span class="p">)):</span>
-    <span class="n">song</span> <span class="o">=</span> <span class="n">eng_features</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">final_preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">epic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">lighthearted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">energetic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">calm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="n">chill</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pred</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="n">miscellaneous</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract the relative paths of each song for m3u file format</span>
-<span class="n">m3u_paths_relative</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">m3u_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">root_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">m3u_paths_relative</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">root_length</span><span class="p">:]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># function to generate m3u files based on song lists</span>
-<span class="k">def</span> <span class="nf">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mood_list</span><span class="p">):</span>
-    <span class="n">full_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s2">&quot;.m3u&quot;</span>
-    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
-    <span class="n">playlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">m3u_paths_relative</span><span class="p">[</span><span class="n">song</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">mood_list</span><span class="p">]</span>
-    <span class="n">playlist</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#EXTM3U</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">playlist</span><span class="p">)</span>
-    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the playlist files</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;epic_playlist&quot;</span><span class="p">,</span> <span class="n">epic</span><span class="p">)</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;lighthearted_playlist&quot;</span><span class="p">,</span> <span class="n">lighthearted</span><span class="p">)</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;energetic_playlist&quot;</span><span class="p">,</span> <span class="n">energetic</span><span class="p">)</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;calm_playlist&quot;</span><span class="p">,</span> <span class="n">calm</span><span class="p">)</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;chill_playlist&quot;</span><span class="p">,</span> <span class="n">chill</span><span class="p">)</span>
-<span class="n">write_playlist</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;miscellaneous_playlist&quot;</span><span class="p">,</span> <span class="n">miscellaneous</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># stop the timer when files are done writing</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">time_elapsed</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the time elapsed in a message box</span>
-<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Total Time Elapsed: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time_elapsed</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; minutes&quot;</span>
-<span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Playlists have been successfully created.&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># final Multi-Layer Perceptron model with raw features</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">build_xy</span><span class="p">(</span><span class="n">combined_raw</span><span class="p">)</span>
+<span class="n">mlp_model</span> <span class="o">=</span> <span class="n">neural_network</span><span class="o">.</span><span class="n">MLPClassifier</span><span class="p">()</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">decomposition</span><span class="o">.</span><span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">svd_solver</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">scaler</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;pca&#39;</span><span class="p">,</span> <span class="n">pca</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;mlp&#39;</span><span class="p">,</span> <span class="n">mlp_model</span><span class="p">)])</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mlp__hidden_layer_sizes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">10000</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50000</span><span class="p">,),</span> <span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">50000</span><span class="p">,</span><span class="mi">50</span><span class="p">)],</span>
+    <span class="s1">&#39;mlp__activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="s1">&#39;identity&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;mlp__solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;mlp__alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">])</span>
+<span class="n">best</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">best_params_</span>
+<span class="err">!</span><span class="n">echo</span> <span class="s2">&quot;MLP Best Parameters&quot;</span>
+<span class="err">!</span><span class="n">echo</span> <span class="err">$</span><span class="n">best</span>
+<span class="err">!</span><span class="n">echo</span>
 </pre></div>
 
      </div>

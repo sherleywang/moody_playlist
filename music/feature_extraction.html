@@ -10,9 +10,9 @@
 
 <style type="text/css">
     pre { line-height: 125%; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14259,16 +14259,16 @@ a.anchor-link {
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">librosa</span>
-<span class="kn">import</span> <span class="nn">pyAudioAnalysis</span> <span class="k">as</span> <span class="nn">pyaudio</span>
-<span class="kn">import</span> <span class="nn">soundfile</span> <span class="k">as</span> <span class="nn">sf</span>
-<span class="kn">from</span> <span class="nn">pydub</span> <span class="kn">import</span> <span class="n">AudioSegment</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import general packages</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">librosa</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">soundfile</span> <span class="k">as</span> <span class="nn">sf</span>
+<span class="kn">from</span> <span class="nn">pydub</span> <span class="kn">import</span> <span class="n">AudioSegment</span>
 </pre></div>
 
      </div>
@@ -14279,10 +14279,12 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyAudioAnalysis</span> <span class="kn">import</span> <span class="n">audioBasicIO</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import pyAudioAnalysis package utility</span>
+<span class="kn">import</span> <span class="nn">pyAudioAnalysis</span> <span class="k">as</span> <span class="nn">pyaudio</span>
+<span class="kn">from</span> <span class="nn">pyAudioAnalysis</span> <span class="kn">import</span> <span class="n">audioBasicIO</span>
 <span class="kn">from</span> <span class="nn">pyAudioAnalysis</span> <span class="kn">import</span> <span class="n">MidTermFeatures</span>
 </pre></div>
 
@@ -14294,10 +14296,11 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># feature extraction data structures</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">existing</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">prev_features</span> <span class="o">=</span> <span class="kc">None</span>
@@ -14311,11 +14314,13 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../data/features.csv&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check and save existing basic features</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../data/features.csv&quot;</span><span class="p">):</span>
     <span class="n">prev_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/features.csv&quot;</span><span class="p">)</span>
+    <span class="c1"># drop all rows with any number of NAs</span>
     <span class="n">prev_features</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">)</span>
     <span class="n">prev_features</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_features</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">prev_features</span><span class="p">[</span><span class="s1">&#39;artist&#39;</span><span class="p">]</span>
     <span class="n">existing</span> <span class="o">=</span> <span class="n">prev_features</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -14326,17 +14331,19 @@ a.anchor-link {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># feature extraction notebook should be in the same folder as the mp3s</span>
+<span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">song</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">song</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
         <span class="c1"># skip ./ in the path to the mp3 file</span>
         <span class="n">file_name</span> <span class="o">=</span> <span class="n">song</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
         <span class="n">song_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">]</span>
+        
         <span class="k">if</span> <span class="n">song_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing</span><span class="p">:</span>
             <span class="c1"># add it to the missing list so we can use pyAudioAnalysis on it</span>
             <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
@@ -14366,47 +14373,14 @@ a.anchor-link {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>/opt/anaconda3/envs/music/lib/python3.8/site-packages/librosa/core/audio.py:162: UserWarning: PySoundFile failed. Trying audioread instead.
-  warnings.warn(&#34;PySoundFile failed. Trying audioread instead.&#34;)
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[&#34;baby don&#39;t cry - exo&#34;, 69.83741554054055, -0.01112832059264044]
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">,</span> <span class="s1">&#39;tempo&#39;</span><span class="p">,</span> <span class="s1">&#39;chroma_number&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sort the features DataFrame alphabetically by song name</span>
+<span class="n">features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">,</span> <span class="s1">&#39;tempo&#39;</span><span class="p">,</span> <span class="s1">&#39;chroma_number&#39;</span><span class="p">])</span>
 <span class="n">features_df</span> <span class="o">=</span> <span class="n">features_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">])</span>
 <span class="n">features_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -14416,10 +14390,10 @@ a.anchor-link {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># move all the mp3 files that need to have features extracted into some folder</span>
@@ -14434,7 +14408,7 @@ a.anchor-link {
 <span class="sd">    cp $line missing</span>
 <span class="sd">done</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="c1"># change the path in directory_feature_extraction</span>
+<span class="c1"># make sure to change the path in directory_feature_extraction</span>
 </pre></div>
 
      </div>
@@ -14442,36 +14416,14 @@ a.anchor-link {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&#39;\nmkdir missing\ncat missing.txt | while read line\ndo\n    cp $line missing\ndone\n&#39;</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mid_term_window</span> <span class="o">=</span> <span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract pyAudioAnalysis features</span>
+<span class="n">mid_term_window</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">mid_term_step</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">short_term_window</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">short_term_step</span> <span class="o">=</span> <span class="mf">0.05</span>
@@ -14489,36 +14441,15 @@ a.anchor-link {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Analyzing file 1 of 1: trial/traveler of the magic borders - takanashi yasuharu.mp3
-Feature extraction complexity ratio: 43.9 x realtime
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># neural network features</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># save pyAudioAnalysis features as neural network features</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_df</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="c1"># special case when only features from one song are extracted</span>
     <span class="n">nn_features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">pyaudio_feat</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">feat_names</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">nn_features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pyaudio_feat</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">feat_names</span><span class="p">)</span>
@@ -14533,10 +14464,11 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zcr_ind</span> <span class="o">=</span> <span class="n">feat_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;zcr_mean&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get the basic features by indexing into the neural network feature DataFrame</span>
+<span class="n">zcr_ind</span> <span class="o">=</span> <span class="n">feat_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;zcr_mean&#39;</span><span class="p">)</span>
 <span class="n">ee_ind</span> <span class="o">=</span> <span class="n">feat_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;energy_entropy_mean&#39;</span><span class="p">)</span>
 <span class="n">spc_ind</span> <span class="o">=</span> <span class="n">feat_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;spectral_centroid_mean&#39;</span><span class="p">)</span>
 
@@ -14550,13 +14482,14 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">features_df</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load the mood label data</span>
+<span class="n">moods</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/mood_data.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14564,216 +14497,15 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>song</th>
-      <th>tempo</th>
-      <th>chroma_number</th>
-      <th>zero_crossing_rate</th>
-      <th>energy_entropy</th>
-      <th>spectral_centroid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>baby don't cry - exo</td>
-      <td>69.837416</td>
-      <td>-0.011128</td>
-      <td>0.053817</td>
-      <td>3.185847</td>
-      <td>0.136686</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">moods</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/mood_data.csv&quot;</span><span class="p">)</span>
-<span class="n">moods</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[62]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>title</th>
-      <th>artist</th>
-      <th>primary</th>
-      <th>secondary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>who says</td>
-      <td>selena gomez</td>
-      <td>2</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>don't stop</td>
-      <td>5 seconds of summer</td>
-      <td>3</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>do you hear what i hear</td>
-      <td>carrie underwood</td>
-      <td>4</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>alliance force, assemble</td>
-      <td>takanashi yasuharu</td>
-      <td>1</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ni pa bu pa shi qu wo</td>
-      <td>liu zeng tong</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>nine four two zero</td>
-      <td>mai xiao er</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>196</th>
-      <td>zui mei hun li</td>
-      <td>bai xiao bai</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>jiu shi xi huan ni</td>
-      <td>li meng yin</td>
-      <td>2</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>198</th>
-      <td>xiao xing xing</td>
-      <td>wang su long</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>qing hua ci</td>
-      <td>jay chou</td>
-      <td>4</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-<p>200 rows × 4 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># merging is incorrect, does not work</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># merge the features with the mood label data</span>
 <span class="n">moods</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moods</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">moods</span><span class="p">[</span><span class="s1">&#39;artist&#39;</span><span class="p">]</span>
+<span class="c1"># sort the column song to use it for merging</span>
 <span class="n">moods</span> <span class="o">=</span> <span class="n">moods</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">])</span>
 <span class="n">moods</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
@@ -14787,79 +14519,14 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[63]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>tempo</th>
-      <th>chroma_number</th>
-      <th>zero_crossing_rate</th>
-      <th>energy_entropy</th>
-      <th>spectral_centroid</th>
-      <th>title</th>
-      <th>artist</th>
-      <th>primary</th>
-      <th>secondary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>69.837416</td>
-      <td>-0.011128</td>
-      <td>0.053817</td>
-      <td>3.185847</td>
-      <td>0.136686</td>
-      <td>baby, don't cry</td>
-      <td>exo</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">existing</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># save the basic features, neural network features and the feature names</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">existing</span><span class="p">:</span>
     <span class="n">new_features</span> <span class="o">=</span> <span class="n">new_features</span><span class="p">[[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;tempo&#39;</span><span class="p">,</span> <span class="s1">&#39;chroma_number&#39;</span><span class="p">,</span> 
                                  <span class="s1">&#39;zero_crossing_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_entropy&#39;</span><span class="p">,</span> 
                                  <span class="s1">&#39;spectral_centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;primary&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary&#39;</span><span class="p">]]</span>
@@ -14870,6 +14537,7 @@ Feature extraction complexity ratio: 43.9 x realtime
     <span class="n">feat_names_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">feat_names</span><span class="p">)</span>
     <span class="n">feat_names_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/nn_feature_names.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># concatenate the previous features with new features and overwrite the existing files</span>
     <span class="n">prev_features</span> <span class="o">=</span> <span class="n">prev_features</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">])</span>
     <span class="n">all_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">prev_features</span><span class="p">,</span> <span class="n">new_features</span><span class="p">],</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">all_features</span> <span class="o">=</span> <span class="n">all_features</span><span class="p">[[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;tempo&#39;</span><span class="p">,</span> <span class="s1">&#39;chroma_number&#39;</span><span class="p">,</span> 
@@ -14908,455 +14576,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># extract additional neural network features</span>
-<span class="n">existing_raw</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">new_raw_dict</span> <span class="o">=</span> <span class="p">{}</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check existing raw features</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../data/raw_features.csv&quot;</span><span class="p">):</span>
-    <span class="n">prev_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/raw_features.csv&quot;</span><span class="p">)</span>
-    <span class="n">prev_raw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">)</span>
-    <span class="n">prev_raw</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_raw</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">prev_raw</span><span class="p">[</span><span class="s1">&#39;artist&#39;</span><span class="p">]</span>
-    <span class="n">existing_raw</span> <span class="o">=</span> <span class="n">prev_raw</span><span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">song</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp3&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">song</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-        <span class="c1"># skip ./ in the path to the mp3 file</span>
-        <span class="n">file_name</span> <span class="o">=</span> <span class="n">song</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-        <span class="n">song_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">song_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_raw</span><span class="p">:</span>
-            <span class="n">sound</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_mp3</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-            <span class="n">sound</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">set_channels</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">sound</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">set_frame_rate</span><span class="p">(</span><span class="mi">16000</span><span class="p">)</span>
-            <span class="n">sound</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;wav&quot;</span><span class="p">)</span>
-            <span class="c1"># does not work for mp3s that are shorter than 35 seconds</span>
-            <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">sf</span><span class="o">.</span><span class="n">blocks</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">,</span> <span class="n">blocksize</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">):</span>
-                <span class="n">new_raw_dict</span><span class="p">[</span><span class="n">song_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span>
-                <span class="k">break</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;temp.wav&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;No temporary wav file found, extraction failed.&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_raw_dict</span><span class="p">)</span>
-<span class="n">new_raw</span> <span class="o">=</span> <span class="n">new_raw</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-<span class="n">new_raw</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;song&#39;</span>
-<span class="n">new_raw</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">new_raw</span> <span class="o">=</span> <span class="n">new_raw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;song&#39;</span><span class="p">])</span>
-<span class="n">new_raw</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_raw</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>song</th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>...</th>
-      <th>99990</th>
-      <th>99991</th>
-      <th>99992</th>
-      <th>99993</th>
-      <th>99994</th>
-      <th>99995</th>
-      <th>99996</th>
-      <th>99997</th>
-      <th>99998</th>
-      <th>99999</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a new adventure - takanashi yasuharu</td>
-      <td>0.133759</td>
-      <td>0.116821</td>
-      <td>0.142548</td>
-      <td>0.124207</td>
-      <td>0.009430</td>
-      <td>0.067474</td>
-      <td>0.181488</td>
-      <td>0.219666</td>
-      <td>0.106842</td>
-      <td>...</td>
-      <td>-0.080841</td>
-      <td>-0.034271</td>
-      <td>-0.182251</td>
-      <td>0.017303</td>
-      <td>0.132935</td>
-      <td>0.306610</td>
-      <td>0.148407</td>
-      <td>-0.014404</td>
-      <td>0.183716</td>
-      <td>0.136566</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>a oh - super junior</td>
-      <td>0.036011</td>
-      <td>0.041168</td>
-      <td>0.049866</td>
-      <td>0.052704</td>
-      <td>0.049591</td>
-      <td>0.041840</td>
-      <td>0.034576</td>
-      <td>0.038391</td>
-      <td>0.046722</td>
-      <td>...</td>
-      <td>-0.007111</td>
-      <td>-0.030304</td>
-      <td>-0.008392</td>
-      <td>0.059509</td>
-      <td>0.092468</td>
-      <td>0.025116</td>
-      <td>0.016785</td>
-      <td>0.041809</td>
-      <td>0.071136</td>
-      <td>0.130554</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>a thousand years - christina perri</td>
-      <td>0.055420</td>
-      <td>0.006805</td>
-      <td>-0.044891</td>
-      <td>-0.095825</td>
-      <td>-0.134277</td>
-      <td>-0.156830</td>
-      <td>-0.174744</td>
-      <td>-0.179108</td>
-      <td>-0.175995</td>
-      <td>...</td>
-      <td>-0.058014</td>
-      <td>-0.056671</td>
-      <td>-0.054871</td>
-      <td>-0.055237</td>
-      <td>-0.053772</td>
-      <td>-0.048981</td>
-      <td>-0.044281</td>
-      <td>-0.034943</td>
-      <td>-0.029633</td>
-      <td>-0.027527</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>adore u - seventeen</td>
-      <td>-0.197845</td>
-      <td>-0.249542</td>
-      <td>-0.231934</td>
-      <td>-0.196228</td>
-      <td>-0.125092</td>
-      <td>0.024902</td>
-      <td>0.097107</td>
-      <td>0.132629</td>
-      <td>0.159119</td>
-      <td>...</td>
-      <td>-0.056244</td>
-      <td>0.125000</td>
-      <td>-0.037994</td>
-      <td>0.080261</td>
-      <td>-0.024231</td>
-      <td>-0.150635</td>
-      <td>-0.049500</td>
-      <td>0.043701</td>
-      <td>-0.050781</td>
-      <td>0.124878</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>after rain - aimer</td>
-      <td>0.088409</td>
-      <td>0.230469</td>
-      <td>0.270050</td>
-      <td>0.196136</td>
-      <td>0.080658</td>
-      <td>0.001160</td>
-      <td>-0.000366</td>
-      <td>0.056885</td>
-      <td>0.119629</td>
-      <td>...</td>
-      <td>-0.042267</td>
-      <td>-0.021881</td>
-      <td>0.001526</td>
-      <td>0.030334</td>
-      <td>0.058197</td>
-      <td>0.078308</td>
-      <td>0.087189</td>
-      <td>0.077271</td>
-      <td>0.039520</td>
-      <td>-0.011230</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>you he bu ke - xu song</td>
-      <td>0.029663</td>
-      <td>0.032990</td>
-      <td>0.035187</td>
-      <td>0.036041</td>
-      <td>0.036743</td>
-      <td>0.034882</td>
-      <td>0.032196</td>
-      <td>0.030518</td>
-      <td>0.029724</td>
-      <td>...</td>
-      <td>-0.056458</td>
-      <td>-0.077820</td>
-      <td>-0.096558</td>
-      <td>-0.169525</td>
-      <td>-0.239258</td>
-      <td>-0.303772</td>
-      <td>-0.301147</td>
-      <td>-0.270264</td>
-      <td>-0.253265</td>
-      <td>-0.268066</td>
-    </tr>
-    <tr>
-      <th>196</th>
-      <td>youth - troye sivan</td>
-      <td>-0.131866</td>
-      <td>-0.142548</td>
-      <td>-0.052338</td>
-      <td>-0.129517</td>
-      <td>-0.023773</td>
-      <td>-0.067261</td>
-      <td>-0.056427</td>
-      <td>-0.040741</td>
-      <td>-0.012817</td>
-      <td>...</td>
-      <td>-0.050049</td>
-      <td>-0.041321</td>
-      <td>-0.036987</td>
-      <td>-0.037292</td>
-      <td>-0.043732</td>
-      <td>-0.052429</td>
-      <td>-0.064270</td>
-      <td>-0.074890</td>
-      <td>-0.081268</td>
-      <td>-0.086334</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>zhe shi ai - henry, donghae</td>
-      <td>0.011230</td>
-      <td>0.010864</td>
-      <td>0.010223</td>
-      <td>0.009338</td>
-      <td>0.008270</td>
-      <td>0.007294</td>
-      <td>0.006653</td>
-      <td>0.006470</td>
-      <td>0.006409</td>
-      <td>...</td>
-      <td>-0.006134</td>
-      <td>-0.004395</td>
-      <td>-0.002441</td>
-      <td>-0.000519</td>
-      <td>0.000122</td>
-      <td>-0.001984</td>
-      <td>-0.006317</td>
-      <td>-0.010193</td>
-      <td>-0.011780</td>
-      <td>-0.011963</td>
-    </tr>
-    <tr>
-      <th>198</th>
-      <td>zui mei hun li - bai xiao bai</td>
-      <td>-0.006927</td>
-      <td>-0.005676</td>
-      <td>-0.004700</td>
-      <td>-0.005310</td>
-      <td>-0.004791</td>
-      <td>-0.003937</td>
-      <td>-0.003296</td>
-      <td>-0.001343</td>
-      <td>-0.000519</td>
-      <td>...</td>
-      <td>0.065247</td>
-      <td>0.098297</td>
-      <td>0.120911</td>
-      <td>0.100739</td>
-      <td>0.036255</td>
-      <td>-0.002991</td>
-      <td>-0.016052</td>
-      <td>-0.074615</td>
-      <td>-0.111176</td>
-      <td>-0.077942</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>zurui yo - chihiro</td>
-      <td>-0.142670</td>
-      <td>0.004974</td>
-      <td>0.069397</td>
-      <td>0.037872</td>
-      <td>0.081940</td>
-      <td>0.245605</td>
-      <td>0.166901</td>
-      <td>0.177002</td>
-      <td>0.122192</td>
-      <td>...</td>
-      <td>-0.165710</td>
-      <td>-0.166901</td>
-      <td>-0.168793</td>
-      <td>-0.157715</td>
-      <td>-0.123444</td>
-      <td>-0.102936</td>
-      <td>-0.092194</td>
-      <td>-0.076324</td>
-      <td>-0.026764</td>
-      <td>0.004791</td>
-    </tr>
-  </tbody>
-</table>
-<p>200 rows × 100001 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">existing_raw</span><span class="p">:</span>
-    <span class="n">new_raw</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/raw_features.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">all_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">prev_raw</span><span class="p">,</span> <span class="n">new_raw</span><span class="p">],</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">all_raw</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/raw_features.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># feature engineering</span>
@@ -15374,7 +14594,7 @@ Feature extraction complexity ratio: 43.9 x realtime
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Song ordering DOES NOT match.&quot;</span><span class="p">)</span>
 
-<span class="c1"># add or remove additional features</span>
+<span class="c1"># convert the feature names into a list</span>
 <span class="n">feat_names_list</span> <span class="o">=</span> <span class="n">feat_names_df</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
 <span class="c1"># selected 28 total features based on distribution boxplots by primary mood</span>
 <span class="n">selected_feats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zcr_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;zcr_std&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;energy_entropy_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;spectral_centroid_mean&#39;</span><span class="p">,</span> 
@@ -15399,544 +14619,6 @@ Feature extraction complexity ratio: 43.9 x realtime
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Song ordering matches.
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>&lt;ipython-input-3-375b915b913a&gt;:8: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  engineered_features[&#39;song&#39;] = feats_to_extract[&#39;song&#39;]
-&lt;ipython-input-3-375b915b913a&gt;:9: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  engineered_features[&#39;song_check&#39;] = engineered_features[&#39;title&#39;] + &#39; - &#39; + engineered_features[&#39;artist&#39;]
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>title</th>
-      <th>artist</th>
-      <th>tempo</th>
-      <th>chroma_number</th>
-      <th>zcr_mean</th>
-      <th>zcr_std</th>
-      <th>energy_mean</th>
-      <th>energy_entropy_mean</th>
-      <th>spectral_centroid_mean</th>
-      <th>spectral_spread_mean</th>
-      <th>...</th>
-      <th>delta energy_std</th>
-      <th>delta mfcc_1_std</th>
-      <th>delta mfcc_3_std</th>
-      <th>delta mfcc_13_std</th>
-      <th>delta spectral_centroid_std</th>
-      <th>delta spectral_entropy_std</th>
-      <th>delta spectral_flux_std</th>
-      <th>delta spectral_spread_std</th>
-      <th>primary</th>
-      <th>secondary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a new adventure</td>
-      <td>takanashi yasuharu</td>
-      <td>117.453835</td>
-      <td>-0.010635</td>
-      <td>0.082014</td>
-      <td>0.031156</td>
-      <td>0.061664</td>
-      <td>3.164051</td>
-      <td>0.186062</td>
-      <td>0.201923</td>
-      <td>...</td>
-      <td>0.031983</td>
-      <td>0.619485</td>
-      <td>0.254529</td>
-      <td>0.189750</td>
-      <td>0.039689</td>
-      <td>0.304516</td>
-      <td>0.003464</td>
-      <td>0.026444</td>
-      <td>1</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>a oh</td>
-      <td>super junior</td>
-      <td>129.199219</td>
-      <td>-0.005782</td>
-      <td>0.078039</td>
-      <td>0.028662</td>
-      <td>0.087948</td>
-      <td>3.213386</td>
-      <td>0.179459</td>
-      <td>0.196234</td>
-      <td>...</td>
-      <td>0.031600</td>
-      <td>0.785050</td>
-      <td>0.345785</td>
-      <td>0.225282</td>
-      <td>0.035337</td>
-      <td>0.333457</td>
-      <td>0.002662</td>
-      <td>0.021355</td>
-      <td>3</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>a thousand years</td>
-      <td>christina perri</td>
-      <td>92.285156</td>
-      <td>-0.016321</td>
-      <td>0.044617</td>
-      <td>0.018092</td>
-      <td>0.052477</td>
-      <td>3.217903</td>
-      <td>0.122203</td>
-      <td>0.170703</td>
-      <td>...</td>
-      <td>0.016750</td>
-      <td>0.521221</td>
-      <td>0.241593</td>
-      <td>0.196299</td>
-      <td>0.028887</td>
-      <td>0.155287</td>
-      <td>0.002794</td>
-      <td>0.030025</td>
-      <td>6</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>adore u</td>
-      <td>seventeen</td>
-      <td>103.359375</td>
-      <td>-0.007745</td>
-      <td>0.058125</td>
-      <td>0.027802</td>
-      <td>0.113696</td>
-      <td>3.142738</td>
-      <td>0.145660</td>
-      <td>0.170424</td>
-      <td>...</td>
-      <td>0.064444</td>
-      <td>1.280268</td>
-      <td>0.469696</td>
-      <td>0.248865</td>
-      <td>0.035615</td>
-      <td>0.324714</td>
-      <td>0.007247</td>
-      <td>0.028047</td>
-      <td>3</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>after rain</td>
-      <td>aimer</td>
-      <td>117.453835</td>
-      <td>-0.010324</td>
-      <td>0.068620</td>
-      <td>0.026402</td>
-      <td>0.083934</td>
-      <td>3.211794</td>
-      <td>0.147982</td>
-      <td>0.169066</td>
-      <td>...</td>
-      <td>0.064776</td>
-      <td>1.005204</td>
-      <td>0.362243</td>
-      <td>0.220264</td>
-      <td>0.033298</td>
-      <td>0.300292</td>
-      <td>0.005283</td>
-      <td>0.025979</td>
-      <td>2</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>you he bu ke</td>
-      <td>xu song</td>
-      <td>99.384014</td>
-      <td>0.015339</td>
-      <td>0.056268</td>
-      <td>0.042850</td>
-      <td>0.073693</td>
-      <td>3.166332</td>
-      <td>0.156298</td>
-      <td>0.198088</td>
-      <td>...</td>
-      <td>0.041610</td>
-      <td>1.132257</td>
-      <td>0.402372</td>
-      <td>0.242564</td>
-      <td>0.071073</td>
-      <td>0.410712</td>
-      <td>0.009546</td>
-      <td>0.050956</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>196</th>
-      <td>youth</td>
-      <td>troye sivan</td>
-      <td>123.046875</td>
-      <td>-0.002242</td>
-      <td>0.056377</td>
-      <td>0.035249</td>
-      <td>0.081590</td>
-      <td>3.192966</td>
-      <td>0.140693</td>
-      <td>0.169824</td>
-      <td>...</td>
-      <td>0.036208</td>
-      <td>0.903736</td>
-      <td>0.388618</td>
-      <td>0.235086</td>
-      <td>0.039178</td>
-      <td>0.372678</td>
-      <td>0.005693</td>
-      <td>0.027476</td>
-      <td>5</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>zhe shi ai</td>
-      <td>henry, donghae</td>
-      <td>151.999081</td>
-      <td>-0.020014</td>
-      <td>0.019520</td>
-      <td>0.004853</td>
-      <td>0.010187</td>
-      <td>3.202357</td>
-      <td>0.075014</td>
-      <td>0.148539</td>
-      <td>...</td>
-      <td>0.005241</td>
-      <td>1.118669</td>
-      <td>0.309914</td>
-      <td>0.191399</td>
-      <td>0.036687</td>
-      <td>0.037481</td>
-      <td>0.012192</td>
-      <td>0.058416</td>
-      <td>4</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>198</th>
-      <td>zui mei hun li</td>
-      <td>bai xiao bai</td>
-      <td>112.347147</td>
-      <td>0.022650</td>
-      <td>0.051512</td>
-      <td>0.039506</td>
-      <td>0.056785</td>
-      <td>3.168251</td>
-      <td>0.134493</td>
-      <td>0.169568</td>
-      <td>...</td>
-      <td>0.025834</td>
-      <td>1.111881</td>
-      <td>0.477303</td>
-      <td>0.251263</td>
-      <td>0.042643</td>
-      <td>0.410848</td>
-      <td>0.009373</td>
-      <td>0.031184</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>zurui yo</td>
-      <td>chihiro</td>
-      <td>161.499023</td>
-      <td>0.001965</td>
-      <td>0.047713</td>
-      <td>0.022574</td>
-      <td>0.122362</td>
-      <td>3.181779</td>
-      <td>0.129770</td>
-      <td>0.173564</td>
-      <td>...</td>
-      <td>0.048790</td>
-      <td>0.943597</td>
-      <td>0.354265</td>
-      <td>0.211504</td>
-      <td>0.036155</td>
-      <td>0.243593</td>
-      <td>0.008457</td>
-      <td>0.029180</td>
-      <td>6</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-<p>200 rows × 32 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_names_list</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>[&#39;zcr_mean&#39;,
- &#39;energy_mean&#39;,
- &#39;energy_entropy_mean&#39;,
- &#39;spectral_centroid_mean&#39;,
- &#39;spectral_spread_mean&#39;,
- &#39;spectral_entropy_mean&#39;,
- &#39;spectral_flux_mean&#39;,
- &#39;spectral_rolloff_mean&#39;,
- &#39;mfcc_1_mean&#39;,
- &#39;mfcc_2_mean&#39;,
- &#39;mfcc_3_mean&#39;,
- &#39;mfcc_4_mean&#39;,
- &#39;mfcc_5_mean&#39;,
- &#39;mfcc_6_mean&#39;,
- &#39;mfcc_7_mean&#39;,
- &#39;mfcc_8_mean&#39;,
- &#39;mfcc_9_mean&#39;,
- &#39;mfcc_10_mean&#39;,
- &#39;mfcc_11_mean&#39;,
- &#39;mfcc_12_mean&#39;,
- &#39;mfcc_13_mean&#39;,
- &#39;chroma_1_mean&#39;,
- &#39;chroma_2_mean&#39;,
- &#39;chroma_3_mean&#39;,
- &#39;chroma_4_mean&#39;,
- &#39;chroma_5_mean&#39;,
- &#39;chroma_6_mean&#39;,
- &#39;chroma_7_mean&#39;,
- &#39;chroma_8_mean&#39;,
- &#39;chroma_9_mean&#39;,
- &#39;chroma_10_mean&#39;,
- &#39;chroma_11_mean&#39;,
- &#39;chroma_12_mean&#39;,
- &#39;chroma_std_mean&#39;,
- &#39;delta zcr_mean&#39;,
- &#39;delta energy_mean&#39;,
- &#39;delta energy_entropy_mean&#39;,
- &#39;delta spectral_centroid_mean&#39;,
- &#39;delta spectral_spread_mean&#39;,
- &#39;delta spectral_entropy_mean&#39;,
- &#39;delta spectral_flux_mean&#39;,
- &#39;delta spectral_rolloff_mean&#39;,
- &#39;delta mfcc_1_mean&#39;,
- &#39;delta mfcc_2_mean&#39;,
- &#39;delta mfcc_3_mean&#39;,
- &#39;delta mfcc_4_mean&#39;,
- &#39;delta mfcc_5_mean&#39;,
- &#39;delta mfcc_6_mean&#39;,
- &#39;delta mfcc_7_mean&#39;,
- &#39;delta mfcc_8_mean&#39;,
- &#39;delta mfcc_9_mean&#39;,
- &#39;delta mfcc_10_mean&#39;,
- &#39;delta mfcc_11_mean&#39;,
- &#39;delta mfcc_12_mean&#39;,
- &#39;delta mfcc_13_mean&#39;,
- &#39;delta chroma_1_mean&#39;,
- &#39;delta chroma_2_mean&#39;,
- &#39;delta chroma_3_mean&#39;,
- &#39;delta chroma_4_mean&#39;,
- &#39;delta chroma_5_mean&#39;,
- &#39;delta chroma_6_mean&#39;,
- &#39;delta chroma_7_mean&#39;,
- &#39;delta chroma_8_mean&#39;,
- &#39;delta chroma_9_mean&#39;,
- &#39;delta chroma_10_mean&#39;,
- &#39;delta chroma_11_mean&#39;,
- &#39;delta chroma_12_mean&#39;,
- &#39;delta chroma_std_mean&#39;,
- &#39;zcr_std&#39;,
- &#39;energy_std&#39;,
- &#39;energy_entropy_std&#39;,
- &#39;spectral_centroid_std&#39;,
- &#39;spectral_spread_std&#39;,
- &#39;spectral_entropy_std&#39;,
- &#39;spectral_flux_std&#39;,
- &#39;spectral_rolloff_std&#39;,
- &#39;mfcc_1_std&#39;,
- &#39;mfcc_2_std&#39;,
- &#39;mfcc_3_std&#39;,
- &#39;mfcc_4_std&#39;,
- &#39;mfcc_5_std&#39;,
- &#39;mfcc_6_std&#39;,
- &#39;mfcc_7_std&#39;,
- &#39;mfcc_8_std&#39;,
- &#39;mfcc_9_std&#39;,
- &#39;mfcc_10_std&#39;,
- &#39;mfcc_11_std&#39;,
- &#39;mfcc_12_std&#39;,
- &#39;mfcc_13_std&#39;,
- &#39;chroma_1_std&#39;,
- &#39;chroma_2_std&#39;,
- &#39;chroma_3_std&#39;,
- &#39;chroma_4_std&#39;,
- &#39;chroma_5_std&#39;,
- &#39;chroma_6_std&#39;,
- &#39;chroma_7_std&#39;,
- &#39;chroma_8_std&#39;,
- &#39;chroma_9_std&#39;,
- &#39;chroma_10_std&#39;,
- &#39;chroma_11_std&#39;,
- &#39;chroma_12_std&#39;,
- &#39;chroma_std_std&#39;,
- &#39;delta zcr_std&#39;,
- &#39;delta energy_std&#39;,
- &#39;delta energy_entropy_std&#39;,
- &#39;delta spectral_centroid_std&#39;,
- &#39;delta spectral_spread_std&#39;,
- &#39;delta spectral_entropy_std&#39;,
- &#39;delta spectral_flux_std&#39;,
- &#39;delta spectral_rolloff_std&#39;,
- &#39;delta mfcc_1_std&#39;,
- &#39;delta mfcc_2_std&#39;,
- &#39;delta mfcc_3_std&#39;,
- &#39;delta mfcc_4_std&#39;,
- &#39;delta mfcc_5_std&#39;,
- &#39;delta mfcc_6_std&#39;,
- &#39;delta mfcc_7_std&#39;,
- &#39;delta mfcc_8_std&#39;,
- &#39;delta mfcc_9_std&#39;,
- &#39;delta mfcc_10_std&#39;,
- &#39;delta mfcc_11_std&#39;,
- &#39;delta mfcc_12_std&#39;,
- &#39;delta mfcc_13_std&#39;,
- &#39;delta chroma_1_std&#39;,
- &#39;delta chroma_2_std&#39;,
- &#39;delta chroma_3_std&#39;,
- &#39;delta chroma_4_std&#39;,
- &#39;delta chroma_5_std&#39;,
- &#39;delta chroma_6_std&#39;,
- &#39;delta chroma_7_std&#39;,
- &#39;delta chroma_8_std&#39;,
- &#39;delta chroma_9_std&#39;,
- &#39;delta chroma_10_std&#39;,
- &#39;delta chroma_11_std&#39;,
- &#39;delta chroma_12_std&#39;,
- &#39;delta chroma_std_std&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 </div>
