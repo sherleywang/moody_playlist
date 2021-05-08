@@ -61,6 +61,7 @@ All environment setup steps are required for the application to run properly.
 ![Completion Screen](tutorial_pictures/success_screen.png)
 
 ### Application Caveats
+*These caveats are created by the fact that the playlist files are written using relative paths to the MP3 files.*
 1. The playlist files generated are in M3U format, which can be read by most media players on PC and mobile, but there 
 are exceptions.
 2. The playlists are written assuming your folder structure does not change. Moving existing MP3 files to different 
@@ -68,4 +69,3 @@ folders and renaming existing folders will break the playlist files and require 
 the application again.
 3. The playlist files must be kept in the same folder that they are generated in. Moving the M3U files will render the
 playlist files useless.
-*These caveats are created by the fact that the playlist files are written using relative paths to the MP3 files.*
