@@ -100,11 +100,11 @@ A prediction function to generate one prediction based on predictions from the s
 ### Workflow Step 4: Combining into Application
 Create an application that takes a directory, scans it for all MP3 files, classifies each song based on mood, and outputs a playlist for each mood.
 
-#### A. Aggregate Code for Feature Extraction and Models
-The feature extraction process was rewritten so that subdirectories can be scanned as well as the originally chosen directory. The rest of the workflow was converted into an application through the aggregation of all the code into [this](application/moody_playlist.py) file. This process made it so that to run the application, you only need the two trained model files and [this](application/moody_playlist.py) single Python file.
-
-#### B. Build the GUI
+#### A. Build the GUI
 The package [Tkinter](https://docs.python.org/3/library/tkinter.html) was used to create a simple GUI for the application. The interactive GUI shows up as soon as the Python modules for the application are loaded. This essentially means that after using Python to run the application on the command line, a user-friendly GUI will pop up shortly. The GUI consists of a folder selector, a button to start the application, a progress bar for status updates, and various message boxes for error and success messages. The GUI code can be found [here](application/moody_playlist.py). For more details about the GUI, the [tutorial](setup.md#using-the-application) includes pictures of all elements of the GUI.
+
+#### B. Aggregate Code for Feature Extraction and Models
+The feature extraction process was rewritten so that subdirectories can be scanned as well as the originally chosen directory. The rest of the workflow was converted into an application through the aggregation of all the code into [this](application/moody_playlist.py) file. This process made it so that to run the application, you only need the two trained model files and [this](application/moody_playlist.py) single Python file.
 
 ### Workflow Step 5: Future Steps
 1. Rewrite the GUI part of the application using an alternative such as [PyGUI](https://www.cosc.canterbury.ac.nz/greg.ewing/python_gui/)
