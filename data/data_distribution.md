@@ -41,7 +41,7 @@ of all features extracted using the package pyAudioAnalysis were analyzed to cho
 variation among primary moods. This is the correlation matrix of the 28 chosen/engineered features for all 200 MP3 files:  
 ![Correlation Matrix Engineered](eng_correlation_matrix.jpg)
 
-### Distribution Plots of Engineered Features
+### Data Distribution Plots of Engineered Features
 Here are the data distributions as separated by primary mood for each of the 28 engineered features:
 
 #### Tempo
