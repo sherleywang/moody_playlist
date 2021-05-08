@@ -1,6 +1,6 @@
 # Project Outline
 
-Last Updated: April 14, 2021
+Last Updated: May 7, 2021
 ### Project Description
 A Python 3 project that takes a music library and classifies the songs (mp3 files) into certain moods, creating playlists with these moods.
 
